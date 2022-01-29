@@ -19,6 +19,7 @@ class User extends Model
      */
     protected $fillable = [
         'metamask',
+        'credits',
     ];
 
     /**

@@ -24,6 +24,7 @@ class UserCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('metamask');
+        CRUD::column('credits');
     }
 
     protected function setupCreateOperation()
@@ -31,6 +32,7 @@ class UserCrudController extends CrudController
         CRUD::setValidation(UserRequest::class);
 
         CRUD::field('metamask');
+        CRUD::field('credits');
     }
 
     protected function setupUpdateOperation()

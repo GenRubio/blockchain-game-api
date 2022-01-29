@@ -1,0 +1,88 @@
+Login se hace atravez metamask
+User
+Table: users
+credits
+******************************************************
+Characters
+Table: characters
+id
+name
+stars
+******************************************************
+UserCharacters
+Table: user_characters
+id
+user_id
+user_trasnport_id
+character_id
+live
+power
+//recoreme mis perosnajes y por cada personaje dame 
+//caracater => nombe => estrellas
+//live
+//power
+******************************************************
+Objects
+Table: objects
+id
+name
+power
+winrate
+ganancias
+type (comun, uncomun, rare, legendario, epico)
+******************************************************
+UserObjects
+Table: user_objects
+id
+user_id
+object_id
+user_flota_id
+
+******************************************************
+UserTransport
+Table: user_transports
+id
+user_id
+user_flota_id
+star
+live
+max_characters
+******************************************************
+UserFlota
+Table: user_flota
+id
+user_id
+mission_id
+date_start_mission
+
+******************************************************
+Missions
+Table: missions
+id
+mission_num
+win_min
+win_max
+win_rate
+power
+rango_name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
