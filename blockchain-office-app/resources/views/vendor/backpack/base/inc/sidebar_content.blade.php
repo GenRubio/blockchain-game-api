@@ -5,3 +5,4 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('character') }}'><i class='nav-icon la la-question'></i> Characters</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('mission') }}'><i class='nav-icon la la-question'></i> Missions</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('object-type') }}'><i class='nav-icon la la-question'></i> Object types</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('item') }}'><i class='nav-icon la la-question'></i> Objects</a></li>
