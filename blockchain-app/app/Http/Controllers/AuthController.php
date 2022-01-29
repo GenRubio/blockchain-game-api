@@ -28,13 +28,17 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $credentials = request(['email', 'password']);
-
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        $user = $this->getUserByMeta(request(['metamask']));
+        if ($user){
+            if (!$token = Auth::login($user)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
         }
-
         return $this->respondWithToken($token);
+    }
+
+    private function getUserByMeta($metamask){
+        return User::where('metamask', $metamask)->first();
     }
 
     /**
@@ -88,17 +92,14 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|min:6',
+            'metamask' => 'required|string|unique:users',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(),400);
         }
 
         $user = User::create(array_merge(
-            $validator->validate(),
-            ['password' => bcrypt($request->password)]
+            $validator->validate()
         ));
 
         return response()->json([
