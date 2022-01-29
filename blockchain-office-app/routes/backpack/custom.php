@@ -20,4 +20,5 @@ Route::group([
     Route::crud('admin', 'AdminCrudController');
     Route::crud('character', 'CharacterCrudController');
     Route::crud('mission', 'MissionCrudController');
+    Route::crud('object-type', 'ObjectTypeCrudController');
 }); // this should be the absolute last line of this file

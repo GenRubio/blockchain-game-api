@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObjectsTable extends Migration
+class CreateObjectTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateObjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('objects', function (Blueprint $table) {
+        Schema::create('object_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->float('power')->default(0);
+            $table->float('win_rate')->default(0);
+            $table->float('profits')->default(0);
+            $table->float('probability')->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateObjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('objects');
+        Schema::dropIfExists('object_types');
     }
 }
