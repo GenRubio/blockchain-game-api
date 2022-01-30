@@ -23,16 +23,42 @@ class UserCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        CRUD::column('metamask');
-        CRUD::column('credits');
+        $this->crud->addButtonFromView('line', 'user-transport', 'user-transport', 'beginning');
+        $this->crud->addButtonFromView('line', 'user-fleets', 'user-fleets', 'beginning');
+        $this->crud->addColumns([
+            [
+                'name' => 'metamask',
+                'label' => 'Metamask',
+                'type' => 'text'
+            ],
+            [
+                'name' => 'credits',
+                'label' => 'Credits',
+                'type' => 'text'
+            ],
+        ]);
     }
 
     protected function setupCreateOperation()
     {
         CRUD::setValidation(UserRequest::class);
 
-        CRUD::field('metamask');
-        CRUD::field('credits');
+        $this->crud->addFields([
+            [
+                'name' => 'metamask',
+                'label' => 'Metamask',
+                'type' => 'text'
+            ],
+            [
+                'name' => 'credits',
+                'label' => 'Credits',
+                'type' => 'number',
+                'attributes' => [
+                    'step' => 'any'
+                ],
+                'default' => 0
+            ],
+        ]);
     }
 
     protected function setupUpdateOperation()

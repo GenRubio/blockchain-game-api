@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class UserObjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'metamask' => 'required',
-            'credits' => 'required',
+            // 'name' => 'required|min:5|max:255'
         ];
     }
 
