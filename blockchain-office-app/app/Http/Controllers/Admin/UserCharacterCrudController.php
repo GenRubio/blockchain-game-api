@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\UserCharacterRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Route;
 
 class UserCharacterCrudController extends CrudController
 {
@@ -14,11 +15,37 @@ class UserCharacterCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    protected $user_id;
+
     public function setup()
     {
         CRUD::setModel(\App\Models\UserCharacter::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/user-character');
+        $this->setRoute();
+        $this->breadCrumbs();
+        $this->filterList();
         CRUD::setEntityNameStrings('user character', 'user characters');
+    }
+
+    private function setRoute()
+    {
+        $this->user_id = Route::current()->parameter('user_id');
+        $this->crud->setRoute("admin/user/"
+            . $this->user_id . '/user-character');
+    }
+
+    private function breadCrumbs()
+    {
+        $this->data['breadcrumbs'] = [
+            trans('backpack::crud.admin') => backpack_url('dashboard'),
+            'Users' => backpack_url('user'),
+            'User Characters' => backpack_url("user/" . $this->user_id . "/user-character"),
+            trans('backpack::crud.list') => false,
+        ];
+    }
+
+    private function filterList()
+    {
+        $this->crud->addClause('where', 'user_id', $this->user_id);
     }
 
     protected function setupListOperation()
@@ -62,6 +89,53 @@ class UserCharacterCrudController extends CrudController
                 'type' => 'select2',
                 'model'     => "App\Models\User", // foreign key model
                 'attribute' => 'metamask',
+                'value'   => $this->user_id,
+                'options'   => (function ($query) {
+                    return $query->where('id', $this->user_id)->get();
+                }),
+                'attributes' => [
+                    'readonly'    => 'readonly',
+                ],
+            ],
+            [
+                'name' => 'character_id',
+                'label' => 'Character Stars',
+                'type' => 'select2',
+                'model'     => "App\Models\Character", // foreign key model
+                'attribute' => 'stars',
+            ],
+            [
+                'name' => 'live',
+                'type' => 'hidden',
+                'value' => 1,
+            ],
+            [
+                'name' => 'power',
+                'type' => 'hidden',
+                'value' => 1,
+            ],
+        ]);
+
+    }
+
+    protected function setupUpdateOperation()
+    {
+        CRUD::setValidation(UserCharacterRequest::class);
+
+        $this->crud->addFields([
+            [
+                'name' => 'user_id',
+                'label' => 'User',
+                'type' => 'select2',
+                'model'     => "App\Models\User", // foreign key model
+                'attribute' => 'metamask',
+                'value'   => $this->user_id,
+                'options'   => (function ($query) {
+                    return $query->where('id', $this->user_id)->get();
+                }),
+                'attributes' => [
+                    'readonly'    => 'readonly',
+                ],
             ],
             [
                 'name' => 'character_id',
@@ -83,11 +157,5 @@ class UserCharacterCrudController extends CrudController
                 'default' => 1,
             ],
         ]);
-
-    }
-
-    protected function setupUpdateOperation()
-    {
-        $this->setupCreateOperation();
     }
 }

@@ -24,6 +24,9 @@ class Character extends Model
     protected $fillable = [
         'name',
         'stars',
+        'min_power',
+        'max_power',
+        'live',
         'image',
         'probability'
     ];

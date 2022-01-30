@@ -42,6 +42,21 @@ class CharacterCrudController extends CrudController
                 'label' => 'Stars',
             ],
             [
+                'name' => 'min_power',
+                'type' => 'text',
+                'label' => 'Min power',
+            ],
+            [
+                'name' => 'max_power',
+                'type' => 'text',
+                'label' => 'Max power',
+            ],
+            [
+                'name' => 'live',
+                'type' => 'text',
+                'label' => 'Live',
+            ],
+            [
                 'name' => 'probability',
                 'type' => 'text',
                 'label' => 'Probability',
@@ -68,6 +83,24 @@ class CharacterCrudController extends CrudController
                 'name' => 'stars',
                 'type' => 'number',
                 'label' => 'Stars',
+                'default' => 1,
+            ],
+            [
+                'name' => 'min_power',
+                'type' => 'number',
+                'label' => 'Min power',
+                'default' => 1,
+            ],
+            [
+                'name' => 'max_power',
+                'type' => 'number',
+                'label' => 'Max power',
+                'default' => 1,
+            ],
+            [
+                'name' => 'live',
+                'type' => 'number',
+                'label' => 'Live',
                 'default' => 1,
             ],
             [

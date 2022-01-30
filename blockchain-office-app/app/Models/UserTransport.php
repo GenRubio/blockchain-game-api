@@ -23,9 +23,20 @@ class UserTransport extends Model
         'user_id',
         'user_fleet_id',
         'transport_id',
+        'live',
     ];
     // protected $hidden = [];
     // protected $dates = [];
+
+    public static function boot()
+    {
+        parent::boot();
+        self::created(function ($userTransport) {
+           $userTransport->update([
+               'live' => $userTransport->transport->live
+           ]);
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------

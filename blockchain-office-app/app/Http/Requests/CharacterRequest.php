@@ -29,6 +29,9 @@ class CharacterRequest extends FormRequest
              'name' => 'required|min:5|max:255',
              'stars' => 'required',
              'probability' => 'required',
+             'min_power' => 'required',
+             'max_power' => 'required',
+             'live' => 'required',
         ];
     }
 

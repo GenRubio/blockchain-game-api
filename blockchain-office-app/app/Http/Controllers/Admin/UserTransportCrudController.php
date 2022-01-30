@@ -72,11 +72,46 @@ class UserTransportCrudController extends CrudController
                 'type' => 'relationship',
                 'attribute' => 'stars',
             ],
+            [
+                'name' => 'live',
+                'label' => 'Live',
+                'type' => 'text',
+            ],
         ]);
 
     }
 
     protected function setupCreateOperation()
+    {
+        CRUD::setValidation(UserTransportRequest::class);
+
+        $this->crud->addFields([
+            [
+                'name' => 'user_id',
+                'label' => 'User',
+                'type' => 'select2',
+                'model'     => "App\Models\User", // foreign key model
+                'attribute' => 'metamask',
+                'value'   => $this->user_id,
+                'options'   => (function ($query) {
+                    return $query->where('id', $this->user_id)->get();
+                }),
+                'attributes' => [
+                    'readonly'    => 'readonly',
+                ],
+            ],
+            [
+                'name' => 'transport_id',
+                'label' => 'Transport Stars',
+                'type' => 'select2',
+                'model'     => "App\Models\Transport", // foreign key model
+                'attribute' => 'stars',
+            ],
+        ]);
+
+    }
+
+    protected function setupUpdateOperation()
     {
         CRUD::setValidation(UserTransportRequest::class);
 
@@ -112,12 +147,11 @@ class UserTransportCrudController extends CrudController
                     return $query->where('user_id', $this->user_id)->get();
                 }),
             ],
+            [
+                'name' => 'live',
+                'label' => 'Live',
+                'type' => 'number',
+            ],
         ]);
-
-    }
-
-    protected function setupUpdateOperation()
-    {
-        $this->setupCreateOperation();
     }
 }

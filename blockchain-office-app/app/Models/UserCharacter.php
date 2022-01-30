@@ -29,6 +29,17 @@ class UserCharacter extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::created(function ($userCharacter) {
+           $userCharacter->update([
+               'live' => $userCharacter->character->live,
+               'power' => rand($userCharacter->character->min_power, $userCharacter->character->max_power)
+           ]);
+        });
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
