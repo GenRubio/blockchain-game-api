@@ -31,6 +31,11 @@ class ItemCrudController extends CrudController
                 'label' => 'ID',
             ],
             [
+                'name' => 'image',
+                'type' => 'image',
+                'label' => 'Image',
+            ],
+            [
                 'name' => 'name',
                 'type' => 'text',
                 'label' => 'Name',
@@ -54,6 +59,11 @@ class ItemCrudController extends CrudController
                 'name' => 'name',
                 'label' => 'Name',
                 'type' => 'text',
+            ],
+            [
+                'name' => 'image',
+                'label' => 'Image',
+                'type' => 'image',
             ],
             [
                 'name' => 'object_type_id',

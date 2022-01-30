@@ -30,6 +30,11 @@ class MissionCrudController extends CrudController
                 'label' => 'Level',
             ],
             [
+                'name' => 'image',
+                'type' => 'image',
+                'label' => 'Image',
+            ],
+            [
                 'name' => 'rank_name',
                 'type' => 'text',
                 'label' => 'Rank name',
@@ -68,6 +73,11 @@ class MissionCrudController extends CrudController
                 'label' => 'Level',
                 'type' => 'number',
                 'default' => 1,
+            ],
+            [
+                'name' => 'image',
+                'type' => 'image',
+                'label' => 'Image',
             ],
             [
                 'name' => 'rank_name',

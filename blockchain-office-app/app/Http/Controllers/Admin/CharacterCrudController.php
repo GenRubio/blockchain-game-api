@@ -27,6 +27,11 @@ class CharacterCrudController extends CrudController
     {
         $this->crud->addColumns([
             [
+                'name' => 'image',
+                'type' => 'image',
+                'label' => 'Image',
+            ],
+            [
                 'name' => 'name',
                 'type' => 'text',
                 'label' => 'Name',
@@ -53,6 +58,11 @@ class CharacterCrudController extends CrudController
                 'name' => 'name',
                 'label' => 'Name',
                 'type' => 'text',
+            ],
+            [
+                'name' => 'image',
+                'label' => 'Image',
+                'type' => 'image',
             ],
             [
                 'name' => 'stars',
