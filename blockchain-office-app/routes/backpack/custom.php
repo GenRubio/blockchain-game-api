@@ -20,12 +20,12 @@ Route::group([
         Route::crud('user-fleet', 'UserFleetCrudController');
         Route::crud('user-transport', 'UserTransportCrudController');
         Route::crud('user-character', 'UserCharacterCrudController');
+        Route::crud('user-object', 'UserObjectCrudController');
     });
     Route::crud('admin', 'AdminCrudController');
     Route::crud('character', 'CharacterCrudController');
     Route::crud('mission', 'MissionCrudController');
     Route::crud('object-type', 'ObjectTypeCrudController');
     Route::crud('item', 'ItemCrudController');
-    Route::crud('user-object', 'UserObjectCrudController');
     Route::crud('transport', 'TransportCrudController');
 }); // this should be the absolute last line of this file

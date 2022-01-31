@@ -65,7 +65,7 @@ class UserTransportCrudController extends CrudController
             ],
             [
                 'name' => 'user_fleet_id',
-                'label' => 'User fleet id',
+                'label' => 'User fleet ID',
                 'entity' => 'fleet',
                 'type' => 'relationship',
                 'attribute' => 'id',

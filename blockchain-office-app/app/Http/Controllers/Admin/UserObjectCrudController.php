@@ -5,12 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\UserObjectRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Route;
 
-/**
- * Class UserObjectCrudController
- * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
- */
 class UserObjectCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -19,72 +15,136 @@ class UserObjectCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     * 
-     * @return void
-     */
+    protected $user_id;
+
     public function setup()
     {
         CRUD::setModel(\App\Models\UserObject::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/user-object');
+        $this->setRoute();
+        $this->breadCrumbs();
+        $this->filterList();
         CRUD::setEntityNameStrings('user object', 'user objects');
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     * 
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     * @return void
-     */
-    protected function setupListOperation()
+    private function setRoute()
     {
-        CRUD::column('id');
-        CRUD::column('user_id');
-        CRUD::column('object_id');
-        CRUD::column('user_fleet_id');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        $this->user_id = Route::current()->parameter('user_id');
+        $this->crud->setRoute("admin/user/"
+            . $this->user_id . '/user-object');
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
+    private function breadCrumbs()
+    {
+        $this->data['breadcrumbs'] = [
+            trans('backpack::crud.admin') => backpack_url('dashboard'),
+            'Users' => backpack_url('user'),
+            'User Objects' => backpack_url("user/" . $this->user_id . "/user-object"),
+            trans('backpack::crud.list') => false,
+        ];
+    }
+
+    private function filterList()
+    {
+        $this->crud->addClause('where', 'user_id', $this->user_id);
+    }
+
+    protected function setupListOperation()
+    {
+        $this->crud->addColumns([
+            [
+                'name' => 'id',
+                'label' => 'ID',
+                'type' => 'text',
+            ],
+            [
+                'name' => 'user_id',
+                'label' => 'User',
+                'entity' => 'user',
+                'type' => 'relationship',
+                'attribute' => 'metamask',
+            ],
+            [
+                'name' => 'object_id',
+                'label' => 'Object',
+                'entity' => 'object',
+                'type' => 'relationship',
+                'attribute' => 'name',
+            ],
+            [
+                'name' => 'user_fleet_id',
+                'label' => 'User fleet ID',
+                'entity' => 'fleet',
+                'type' => 'relationship',
+                'attribute' => 'id',
+            ],
+        ]);
+    }
+
     protected function setupCreateOperation()
     {
         CRUD::setValidation(UserObjectRequest::class);
 
-        CRUD::field('id');
-        CRUD::field('user_id');
-        CRUD::field('object_id');
-        CRUD::field('user_fleet_id');
-        CRUD::field('created_at');
-        CRUD::field('updated_at');
+        $this->crud->addFields([
+            [
+                'name' => 'user_id',
+                'label' => 'User',
+                'type' => 'select2',
+                'model'     => "App\Models\User", // foreign key model
+                'attribute' => 'metamask',
+                'value'   => $this->user_id,
+                'options'   => (function ($query) {
+                    return $query->where('id', $this->user_id)->get();
+                }),
+                'attributes' => [
+                    'readonly'    => 'readonly',
+                ],
+            ],
+            [
+                'name' => 'object_id',
+                'label' => 'Object',
+                'type' => 'select2',
+                'model'     => "App\Models\Item", // foreign key model
+                'attribute' => 'name',
+            ],
+        ]);
 
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        $this->crud->addFields([
+            [
+                'name' => 'user_id',
+                'label' => 'User',
+                'type' => 'select2',
+                'model'     => "App\Models\User", // foreign key model
+                'attribute' => 'metamask',
+                'value'   => $this->user_id,
+                'options'   => (function ($query) {
+                    return $query->where('id', $this->user_id)->get();
+                }),
+                'attributes' => [
+                    'readonly'    => 'readonly',
+                ],
+            ],
+            [
+                'name' => 'object_id',
+                'label' => 'Object',
+                'type' => 'select2',
+                'model'     => "App\Models\Item", // foreign key model
+                'attribute' => 'name',
+            ],
+            [
+                'name' => 'user_fleet_id',
+                'label' => 'Fleet',
+                'type' => 'select2',
+                'model'     => "App\Models\UserFleet", // foreign key model
+                'attribute' => 'id',
+                'options'   => (function ($query) {
+                    return $query->where('user_id', $this->user_id)->get();
+                }),
+            ],
+        ]);
+
     }
 }

@@ -19,7 +19,11 @@ class UserObject extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = [];
+    protected $fillable = [
+        'user_id',
+        'object_id',
+        'user_fleet_id',
+    ];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -34,6 +38,18 @@ class UserObject extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
+    public function user(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function object(){
+        return $this->hasOne(Item::class, 'id', 'object_id');
+    }
+
+    public function fleet(){
+        return $this->hasOne(UserFleet::class, 'id', 'user_fleet_id');
+    }
 
     /*
     |--------------------------------------------------------------------------
