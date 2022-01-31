@@ -60,6 +60,10 @@ class UserCharacter extends Model
         return $this->hasOne(Character::class, 'id', 'character_id');
     }
 
+    public function transport(){
+        return $this->hasOne(UserTransport::class, 'id', 'user_transport_id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

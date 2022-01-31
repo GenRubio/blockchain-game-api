@@ -66,6 +66,13 @@ class UserCharacterCrudController extends CrudController
                 'attribute' => 'stars',
             ],
             [
+                'name' => 'user_transport_id',
+                'label' => 'Transport ID',
+                'entity' => 'transport',
+                'type' => 'relationship',
+                'attribute' => 'id',
+            ],
+            [
                 'name' => 'live',
                 'type' => 'text',
                 'label' => 'Live',
@@ -115,7 +122,6 @@ class UserCharacterCrudController extends CrudController
                 'value' => 1,
             ],
         ]);
-
     }
 
     protected function setupUpdateOperation()
@@ -143,6 +149,18 @@ class UserCharacterCrudController extends CrudController
                 'type' => 'select2',
                 'model'     => "App\Models\Character", // foreign key model
                 'attribute' => 'stars',
+            ],
+            [
+                'name' => 'user_transport_id',
+                'label' => 'Transport ID',
+                'type' => 'select2',
+                'model'     => "App\Models\UserTransport", // foreign key model
+                'attribute' => 'id',
+                'options'   => (function ($query) {
+                    return $query->where('user_id', $this->user_id)
+                        ->where('user_fleet_id', null)
+                        ->get();
+                }),
             ],
             [
                 'name' => 'live',
