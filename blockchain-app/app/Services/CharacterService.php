@@ -24,7 +24,7 @@ class CharacterService extends Controller
         return [
             'name' => $character->name,
             'stars' => $character->stars,
-            'image' => $character->image,
+            'image' => !empty($character->image) ? asset($character->image) : null,
         ];
     }
 }

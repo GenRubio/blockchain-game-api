@@ -24,7 +24,7 @@ class TransportService extends Controller
         return [
             'name' => $transport->name,
             'stars' => $transport->stars,
-            'image' => $transport->image,
+            'image' => !empty($transport->image) ? asset($transport->image) : null,
         ];
     }
 }

@@ -24,7 +24,7 @@ class MissionService extends Controller
         return [
             'level' => $mission->level,
             'rank_name' => $mission->rank_name,
-            'image' => $mission->image,
+            'image' => !empty($mission->image) ? asset($mission->image) : null,
         ];
     }
 }
