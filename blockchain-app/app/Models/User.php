@@ -16,10 +16,8 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
+    protected $guarded = ['id'];
     protected $fillable = [
-        'name',
-        'email',
-        'password',
         'metamask'
     ];
 
@@ -29,7 +27,6 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -53,5 +50,63 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims() {
         return [];
-    }    
+    }
+
+      /*
+    |--------------------------------------------------------------------------
+    | FUNCTIONS
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS
+    |--------------------------------------------------------------------------
+    */
+
+    public function characters(){
+        return $this->hasMany(UserCharacter::class, 'user_id', 'id');
+    }
+
+    public function charactersNotInTransport(){
+        return$this->hasMany(UserCharacter::class, 'user_id', 'id')->where('user_transport_id', null);
+    }
+
+    public function transports(){
+        return $this->hasMany(UserTransport::class, 'user_id', 'id');
+    }
+
+    public function transportsNotInFleet(){
+        return $this->hasMany(UserTransport::class, 'user_id', 'id')->where('user_fleet_id', null);
+    }
+
+    public function objects(){
+        return $this->hasMany(UserObject::class, 'user_id', 'id');
+    }
+
+    public function objectsNotInFleet(){
+        return $this->hasMany(UserObject::class, 'user_id', 'id')->where('user_fleet_id', null);
+    }
+
+    public function fleets(){
+        return $this->hasMany(UserFleet::class, 'user_id', 'id');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESSORS
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | MUTATORS
+    |--------------------------------------------------------------------------
+    */
 }
