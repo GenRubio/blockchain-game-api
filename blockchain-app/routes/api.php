@@ -30,8 +30,14 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
     Route::prefix('user')->group(function (){
-        Route::post('characters/all', [UserController::class, 'getCharacters']);
-        Route::post('transports/all', [UserController::class, 'getTransports']);
+        Route::prefix('characters')->group(function (){
+            Route::post('all', [UserController::class, 'getCharacters']);
+            Route::post('not-in-transport', [UserController::class, 'getCharactersNotInTransport']);
+        });
+        Route::prefix('transports')->group(function (){
+            Route::post('all', [UserController::class, 'getTransports']);
+            Route::post('not-in-fleet', [UserController::class, 'getTransportsNotInFleet']);
+        });
         Route::post('objects/all', [UserController::class, 'getObjects']);
         Route::post('fleets/all', [UserController::class, 'getFleets']);
     });

@@ -21,11 +21,31 @@ class UserController extends Controller
         return response()->json($characters);
     }
 
+    public function getCharactersNotInTransport(){
+        $characters = [];
+        $userCharacterService = new UserCharacterService();
+
+        foreach(getUser()->charactersNotInTransport as $character){
+            $characters[] = $userCharacterService->prepareDataUserCharacter($character);
+        }
+        return response()->json($characters);
+    }
+
     public function getTransports(){
         $transports = [];
         $userTrasnportService = new UserTransportService();
 
         foreach(getUser()->transports as $transport){
+            $transports [] = $userTrasnportService->prepareDataUserTransport($transport);
+        }
+        return response()->json($transports);
+    }
+
+    public function getTransportsNotInFleet(){
+        $transports = [];
+        $userTrasnportService = new UserTransportService();
+
+        foreach(getUser()->transportsNotInFleet as $transport){
             $transports [] = $userTrasnportService->prepareDataUserTransport($transport);
         }
         return response()->json($transports);
