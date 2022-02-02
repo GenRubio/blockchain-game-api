@@ -20,4 +20,12 @@ class ItemService extends Controller
         //
     }
 
+    public function prepareDataItem($item){
+        $objectTypeService = new ObjectTypeService();
+        return [
+            'objectType' => $objectTypeService->prepareDateObjectType($item->objectType),
+            'name' => $item->name,
+            'image' => !empty($item->image) ? asset($item->image) : null
+        ];
+    }
 }

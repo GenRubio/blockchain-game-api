@@ -20,4 +20,18 @@ class UserObjectService extends Controller
         //
     }
 
+    public function getObjectsInUserFleet($userFleet){
+        $objects = [];
+        foreach($userFleet->objects as $userObject){
+            $objects [] = $this->prepareDataUserObject($userObject);
+        }
+        return $objects;
+    }
+
+    public function prepareDataUserObject($userObject){
+        $itemService = new ItemService();
+        return [
+            'object' => $itemService->prepareDataItem($userObject->object)
+        ];
+    }
 }

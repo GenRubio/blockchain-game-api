@@ -22,7 +22,9 @@ class UserFleetService extends Controller
 
     public function prepareDataUserFleet($userFleet){
         $missionService = new MissionService();
+        $userObjectService = new UserObjectService();
         return [
+            'objects' => $userObjectService->getObjectsInUserFleet($userFleet),
             'mission' => $missionService->perepareDataMission($userFleet->mission),
             'date_start_mission' => $userFleet->date_start_mission
         ];

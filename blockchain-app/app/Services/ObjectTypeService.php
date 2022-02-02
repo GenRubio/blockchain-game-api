@@ -20,4 +20,9 @@ class ObjectTypeService extends Controller
         //
     }
 
+    public function prepareDateObjectType($objectType){
+        return [
+            'name' => $objectType->name
+        ];
+    }
 }
