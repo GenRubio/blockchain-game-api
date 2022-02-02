@@ -31,5 +31,8 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
     Route::prefix('user')->group(function (){
         Route::post('characters/all', [UserController::class, 'getCharacters']);
+        Route::post('transports/all', [UserController::class, 'getTransports']);
+        Route::post('objects/all', [UserController::class, 'getObjects']);
+        Route::post('fleets/all', [UserController::class, 'getFleets']);
     });
 });

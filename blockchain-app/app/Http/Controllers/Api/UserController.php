@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Services\UserCharacterService;
-use App\Services\UserService;
+use App\Services\UserFleetService;
+use App\Services\UserObjectService;
+use App\Services\UserTransportService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,9 +15,39 @@ class UserController extends Controller
         $characters = [];
         $userCharacterService = new UserCharacterService();
 
-        foreach(auth()->user()->characters as $character){
+        foreach(getUser()->characters as $character){
             $characters[] = $userCharacterService->prepareDataUserCharacter($character);
         }
         return response()->json($characters);
+    }
+
+    public function getTransports(){
+        $transports = [];
+        $userTrasnportService = new UserTransportService();
+
+        foreach(getUser()->transports as $transport){
+            $transports [] = $userTrasnportService->prepareDataUserTransport($transport);
+        }
+        return response()->json($transports);
+    }
+
+    public function getObjects(){
+        $objects = [];
+        $userObjectService = new UserObjectService();
+
+        foreach(getUser()->objects as $object){
+            $objects [] = $userObjectService->prepareDataUserObject($object);
+        }
+        return response()->json($objects);
+    }
+
+    public function getFleets(){
+        $fleets = [];
+        $userFleetService = new UserFleetService();
+
+        foreach(getUser()->fleets as $fleet){
+            $fleets [] = $userFleetService->prepareDataUserFleet($fleet);
+        }
+        return response()->json($fleets);
     }
 }
