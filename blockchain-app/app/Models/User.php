@@ -18,7 +18,8 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $guarded = ['id'];
     protected $fillable = [
-        'metamask'
+        'metamask',
+        'credits'
     ];
 
     /**

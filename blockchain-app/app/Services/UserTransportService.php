@@ -29,4 +29,13 @@ class UserTransportService extends Controller
             'live' => $userTransport->live
         ];
     }
+
+    public function prepareDataUserTransportNotInFleet($userTransport){
+        $transportService = new TransportService();
+        return [
+            'key' => $userTransport->id,
+            'transport' => $transportService->prepareDataTransport($userTransport->transport),
+            'live' => $userTransport->live
+        ];
+    }
 }

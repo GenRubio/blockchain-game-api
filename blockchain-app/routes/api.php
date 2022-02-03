@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CharacterController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Route::group([
         Route::prefix('characters')->group(function (){
             Route::post('all', [UserController::class, 'getCharacters']);
             Route::post('not-in-transport', [UserController::class, 'getCharactersNotInTransport']);
+            Route::post('buy', [CharacterController::class, 'buyCharacter']);
         });
         Route::prefix('transports')->group(function (){
             Route::post('all', [UserController::class, 'getTransports']);

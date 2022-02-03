@@ -52,6 +52,11 @@ class UserFleetCrudController extends CrudController
     {
         $this->crud->addColumns([
             [
+                'name' => 'id',
+                'label' => 'ID',
+                'type' => 'text',
+            ],
+            [
                 'name' => 'user_id',
                 'label' => 'User',
                 'entity' => 'user',

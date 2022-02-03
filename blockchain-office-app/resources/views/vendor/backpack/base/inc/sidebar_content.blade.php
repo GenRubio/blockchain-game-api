@@ -51,3 +51,5 @@
         <i class="las la-car"></i> Transports
     </a>
 </li>
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon la la-cog'></i> <span>Settings</span></a></li>

@@ -26,7 +26,7 @@ class UserController extends Controller
         $userCharacterService = new UserCharacterService();
 
         foreach(getUser()->charactersNotInTransport as $character){
-            $characters[] = $userCharacterService->prepareDataUserCharacter($character);
+            $characters[] = $userCharacterService->prepareDataUserCharactersNotInTransport($character);
         }
         return response()->json($characters);
     }
@@ -46,7 +46,7 @@ class UserController extends Controller
         $userTrasnportService = new UserTransportService();
 
         foreach(getUser()->transportsNotInFleet as $transport){
-            $transports [] = $userTrasnportService->prepareDataUserTransport($transport);
+            $transports [] = $userTrasnportService->prepareDataUserTransportNotInFleet($transport);
         }
         return response()->json($transports);
     }
