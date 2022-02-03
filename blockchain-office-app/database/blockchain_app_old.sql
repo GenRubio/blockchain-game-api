@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-02-2022 a las 19:46:04
+-- Tiempo de generación: 31-01-2022 a las 06:05:17
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.1
 
@@ -131,8 +131,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2022_01_30_100355_create_transports_table', 17),
 (23, '2022_01_30_164358_add_power_to_characters_table', 18),
 (24, '2022_01_30_184545_add_live_to_characters_table', 19),
-(25, '2022_01_30_185421_add_live_to_user_transports_table', 20),
-(26, '2015_08_04_131614_create_settings_table', 21);
+(25, '2022_01_30_185421_add_live_to_user_transports_table', 20);
 
 -- --------------------------------------------------------
 
@@ -210,10 +209,7 @@ CREATE TABLE `objects` (
 
 INSERT INTO `objects` (`id`, `name`, `object_type_id`, `image`, `created_at`, `updated_at`) VALUES
 (1, 'Objeto 1', 3, NULL, '2022-01-29 21:58:34', '2022-01-29 21:58:34'),
-(2, 'Objeto 2', 5, NULL, '2022-01-29 21:58:43', '2022-01-29 21:58:43'),
-(3, 'Objeto 3', 1, NULL, '2022-02-01 04:00:29', '2022-02-01 04:00:29'),
-(4, 'Objeto 4', 2, NULL, '2022-02-01 04:00:37', '2022-02-01 04:00:37'),
-(5, 'Objeto 5', 4, NULL, '2022-02-01 04:00:47', '2022-02-01 04:00:47');
+(2, 'Objeto 2', 5, NULL, '2022-01-29 21:58:43', '2022-01-29 21:58:43');
 
 -- --------------------------------------------------------
 
@@ -276,34 +272,6 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `settings`
---
-
-CREATE TABLE `settings` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `field` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(4) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `settings`
---
-
-INSERT INTO `settings` (`id`, `key`, `name`, `description`, `value`, `field`, `active`, `created_at`, `updated_at`) VALUES
-(1, 'contact_email', 'Contact form email address', 'The email address that all emails from the contact form will go to.', 'admin@updivision.com', '{\"name\":\"value\",\"label\":\"Value\",\"type\":\"email\"}', 1, NULL, NULL),
-(2, 'contact_cc', 'Contact form CC field', 'Email addresses separated by comma, to be included as CC in the email sent by the contact form.', '', '{\"name\":\"value\",\"label\":\"Value\",\"type\":\"text\"}', 1, NULL, NULL),
-(3, 'contact_bcc', 'Contact form BCC field', 'Email addresses separated by comma, to be included as BCC in the email sent by the contact form.', '', '{\"name\":\"value\",\"label\":\"Value\",\"type\":\"email\"}', 1, NULL, NULL),
-(4, 'motto', 'Motto', 'Website motto', 'this is the value', '{\"name\":\"value\",\"label\":\"Value\",\"type\":\"textarea\"}', 1, NULL, NULL);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `transports`
 --
 
@@ -351,8 +319,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `metamask`, `credits`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, '1234', 9400, NULL, NULL, '2022-01-29 08:18:39', '2022-02-03 17:41:11'),
-(2, 'potato', 10000, NULL, NULL, '2022-01-30 12:12:46', '2022-02-01 03:58:50');
+(1, '1234', 0, NULL, NULL, '2022-01-29 08:18:39', '2022-01-29 08:18:39'),
+(2, 'potato', 0, NULL, NULL, '2022-01-30 12:12:46', '2022-01-30 12:12:46');
 
 -- --------------------------------------------------------
 
@@ -377,17 +345,7 @@ CREATE TABLE `user_characters` (
 
 INSERT INTO `user_characters` (`id`, `user_id`, `user_transport_id`, `character_id`, `live`, `power`, `created_at`, `updated_at`) VALUES
 (6, 2, NULL, 4, 20, 199, '2022-01-30 17:49:21', '2022-01-30 17:49:21'),
-(7, 2, 4, 4, 20, 175, '2022-01-30 17:49:28', '2022-01-31 03:40:59'),
-(8, 1, 3, 3, 15, 121, '2022-02-01 04:41:47', '2022-02-01 05:03:18'),
-(9, 1, NULL, 5, 30, 236, '2022-02-01 04:41:52', '2022-02-02 05:23:35'),
-(10, 1, NULL, 4, 20, 188, '2022-02-03 04:43:21', '2022-02-03 04:43:21'),
-(11, 1, NULL, 2, 15, 81, '2022-02-03 04:43:40', '2022-02-03 04:43:40'),
-(12, 1, NULL, 2, 15, 73, '2022-02-03 04:56:57', '2022-02-03 04:56:57'),
-(13, 1, NULL, 1, 15, 42, '2022-02-03 04:57:03', '2022-02-03 04:57:03'),
-(14, 1, NULL, 2, 15, 99, '2022-02-03 04:57:07', '2022-02-03 04:57:07'),
-(15, 1, NULL, 2, 15, 78, '2022-02-03 04:57:30', '2022-02-03 04:57:30'),
-(16, 1, NULL, 1, 15, 33, '2022-02-03 17:40:35', '2022-02-03 17:40:35'),
-(17, 1, NULL, 3, 15, 129, '2022-02-03 17:41:11', '2022-02-03 17:41:11');
+(7, 2, 4, 4, 20, 175, '2022-01-30 17:49:28', '2022-01-31 03:40:59');
 
 -- --------------------------------------------------------
 
@@ -434,8 +392,7 @@ CREATE TABLE `user_objects` (
 
 INSERT INTO `user_objects` (`id`, `user_id`, `object_id`, `user_fleet_id`, `created_at`, `updated_at`) VALUES
 (1, 2, 1, NULL, '2022-01-31 03:54:52', '2022-01-31 03:54:52'),
-(2, 1, 2, 1, '2022-01-31 03:56:07', '2022-02-02 05:05:17'),
-(3, 1, 5, 1, '2022-02-02 05:04:17', '2022-02-02 05:04:31');
+(2, 1, 2, NULL, '2022-01-31 03:56:07', '2022-01-31 03:56:07');
 
 -- --------------------------------------------------------
 
@@ -459,7 +416,7 @@ CREATE TABLE `user_transports` (
 
 INSERT INTO `user_transports` (`id`, `user_id`, `user_fleet_id`, `live`, `transport_id`, `created_at`, `updated_at`) VALUES
 (2, 1, NULL, 20, 4, '2022-01-30 17:58:09', '2022-01-30 17:58:09'),
-(3, 1, 1, 30, 5, '2022-01-30 17:58:30', '2022-02-01 05:03:52'),
+(3, 1, NULL, 30, 5, '2022-01-30 17:58:30', '2022-01-30 17:58:30'),
 (4, 2, NULL, 15, 2, '2022-01-30 17:59:36', '2022-01-30 17:59:36'),
 (5, 2, NULL, 15, 3, '2022-01-30 17:59:41', '2022-01-31 03:34:52');
 
@@ -526,13 +483,6 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indices de la tabla `settings`
---
-ALTER TABLE `settings`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `settings_key_unique` (`key`);
-
---
 -- Indices de la tabla `transports`
 --
 ALTER TABLE `transports`
@@ -594,7 +544,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `missions`
@@ -606,7 +556,7 @@ ALTER TABLE `missions`
 -- AUTO_INCREMENT de la tabla `objects`
 --
 ALTER TABLE `objects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `object_types`
@@ -619,12 +569,6 @@ ALTER TABLE `object_types`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `settings`
---
-ALTER TABLE `settings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `transports`
@@ -642,7 +586,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `user_characters`
 --
 ALTER TABLE `user_characters`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `user_fleets`
@@ -654,7 +598,7 @@ ALTER TABLE `user_fleets`
 -- AUTO_INCREMENT de la tabla `user_objects`
 --
 ALTER TABLE `user_objects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `user_transports`
