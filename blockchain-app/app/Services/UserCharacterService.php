@@ -26,11 +26,23 @@ class UserCharacterService extends Controller
         return $this->userCharacterRepository->create($characterId);
     }
 
+    //No esta siendo utilizado por el momento
     public function prepareDataUserCharacter($userCharacter){
         $characterService = new CharacterService();
         $userTransportService = new UserTransportService();
         return [
             'userTransport' => $userCharacter->transport ? $userTransportService->prepareDataUserTransport($userCharacter->transport) : [],
+            'character' => $characterService->prepareDataCharacter($userCharacter->character),
+            'live' => $userCharacter->live,
+            'power' => $userCharacter->power,
+        ];
+    }
+
+    public function prepareDataUserCharacterWithTransportStatus($userCharacter){
+        $characterService = new CharacterService();
+        return [
+            'key' => $userCharacter->id,
+            'inTransport' => $userCharacter->transport ? true : false,
             'character' => $characterService->prepareDataCharacter($userCharacter->character),
             'live' => $userCharacter->live,
             'power' => $userCharacter->power,

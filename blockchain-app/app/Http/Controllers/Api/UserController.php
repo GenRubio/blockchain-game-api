@@ -16,7 +16,7 @@ class UserController extends Controller
         $userCharacterService = new UserCharacterService();
 
         foreach(getUser()->characters as $character){
-            $characters[] = $userCharacterService->prepareDataUserCharacter($character);
+            $characters[] = $userCharacterService->prepareDataUserCharacterWithTransportStatus($character);
         }
         return response()->json($characters);
     }
