@@ -22,6 +22,10 @@ class UserTransportService extends Controller
         $this->userTransportRepository = new UserTransportRepository();
     }
 
+    public function create($transportId){
+        return $this->userTransportRepository->create($transportId);
+    }
+
     //Not in actual use
     public function prepareDataUserTransport($userTransport){
         $transportService = new TransportService();
@@ -49,6 +53,14 @@ class UserTransportService extends Controller
             'key' => $userTransport->id,
             'transport' => $transportService->prepareDataTransport($userTransport->transport),
             'live' => $userTransport->live
+        ];
+    }
+
+    public function prepareDataUserBuyTransport($prepareDataUserTrasnport){
+        $userService = new UserService();
+        return [
+            'user' => $userService->prepareDataUser(),
+            'userTransport' => $prepareDataUserTrasnport
         ];
     }
 }

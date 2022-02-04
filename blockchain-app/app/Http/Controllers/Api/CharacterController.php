@@ -27,7 +27,7 @@ class CharacterController extends Controller
             $character = $characterService->getCharacterByProbability($characters);
 
             $userCharacter = $userCharacterService->create($character->id);
-            $prepareDataUserCharacter = $userCharacterService->prepareDataUserCharactersNotInTransport($userCharacter);
+            $prepareDataUserCharacter = $userCharacterService->prepareDataUserCharacterWithTransportStatus($userCharacter);
             $userService->removeCredits(100);
 
             $response['message'] = $userCharacterService->prepareDataUserBuyCharacter($prepareDataUserCharacter);

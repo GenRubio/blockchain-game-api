@@ -25,4 +25,12 @@ class TransportRepository extends Repository implements TransportRepositoryInter
         $this->model = new Transport();
         parent::__construct($this->model);
     }
+
+    public function getAll(){
+        return $this->model->all();
+    }
+
+    public function getProbability(){
+        return $this->model->select('id', 'probability')->get();
+    }
 }

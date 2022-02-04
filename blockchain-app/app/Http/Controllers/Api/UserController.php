@@ -45,7 +45,7 @@ class UserController extends Controller
         $userTrasnportService = new UserTransportService();
 
         foreach(getUser()->transports as $transport){
-            $transports [] = $userTrasnportService->prepareDataUserTransport($transport);
+            $transports [] = $userTrasnportService->prepareDataUserTransportWithFleetStatus($transport);
         }
         return response()->json($transports);
     }

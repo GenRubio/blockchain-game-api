@@ -25,4 +25,11 @@ class UserTransportRepository extends Repository implements UserTransportReposit
         $this->model = new UserTransport();
         parent::__construct($this->model);
     }
+
+    public function create($transportId){
+        return $this->model->create([
+            'user_id' => getUser()->id,
+            'transport_id' => $transportId
+        ]);
+    }
 }

@@ -8,5 +8,5 @@ namespace App\Repositories\UserTransport;
  */
 interface UserTransportRepositoryInterface
 {
-    //
+    public function create($transportId);
 }

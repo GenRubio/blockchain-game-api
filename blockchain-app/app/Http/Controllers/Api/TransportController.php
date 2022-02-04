@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\UserService;
+use App\Services\TransportService;
+use App\Http\Controllers\Controller;
+use App\Services\UserTransportService;
 
 class TransportController extends Controller
 {
@@ -15,18 +18,18 @@ class TransportController extends Controller
         ];
 
         if (getUser()->credits >= 100) {
-            $characterService = new CharacterService();
-            $userCharacterService = new UserCharacterService();
+            $transportService = new TransportService();
+            $userTransportService = new UserTransportService();
             $userService = new UserService();
 
-            $characters = $characterService->getAllCharactersProbability();
-            $character = $characterService->getCharacterByProbability($characters);
+            $transports = $transportService->getAllTransportsProbability();
+            $transport = $transportService->getTransportByProbability($transports);
 
-            $userCharacter = $userCharacterService->create($character->id);
-            $prepareDataUserCharacter = $userCharacterService->prepareDataUserCharactersNotInTransport($userCharacter);
+            $userTransport = $userTransportService->create($transport->id);
+            $prepareDataUserCharacter = $userTransportService->prepareDataUserTransportWithFleetStatus($userTransport);
             $userService->removeCredits(100);
 
-            $response['message'] = $userCharacterService->prepareDataUserBuyCharacter($prepareDataUserCharacter);
+            $response['message'] = $userTransportService->prepareDataUserBuyTransport($prepareDataUserCharacter);
             $response['status'] = 200;
          
         } else {

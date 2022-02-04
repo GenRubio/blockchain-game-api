@@ -8,5 +8,6 @@ namespace App\Repositories\Transport;
  */
 interface TransportRepositoryInterface
 {
-    //
+    public function getAll();
+    public function getProbability();
 }
