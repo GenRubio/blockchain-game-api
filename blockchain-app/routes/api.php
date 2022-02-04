@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\Api\CharacterController;
 use App\Http\Controllers\Api\TransportController;
+use App\Http\Controllers\Api\UserCharacterController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\UserFleetController;
+use App\Http\Controllers\Api\UserObjectController;
+use App\Http\Controllers\Api\UserTransportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -34,18 +38,18 @@ Route::group([
         Route::post('/', [UserController::class, 'getUser']);
 
         Route::prefix('characters')->group(function () {
-            Route::post('all', [UserController::class, 'getCharacters']);
-            Route::post('not-in-transport', [UserController::class, 'getCharactersNotInTransport']);
+            Route::post('all', [UserCharacterController::class, 'getCharacters']);
+            Route::post('not-in-transport', [UserCharacterController::class, 'getCharactersNotInTransport']);
             Route::post('buy', [CharacterController::class, 'buyCharacter']);
         });
 
         Route::prefix('transports')->group(function () {
-            Route::post('all', [UserController::class, 'getTransports']);
-            Route::post('not-in-fleet', [UserController::class, 'getTransportsNotInFleet']);
+            Route::post('all', [UserTransportController::class, 'getTransports']);
+            Route::post('not-in-fleet', [UserTransportController::class, 'getTransportsNotInFleet']);
             Route::post('buy', [TransportController::class, 'buyTransport']);
         });
 
-        Route::post('objects/all', [UserController::class, 'getObjects']);
-        Route::post('fleets/all', [UserController::class, 'getFleets']);
+        Route::post('objects/all', [UserObjectController::class, 'getObjects']);
+        Route::post('fleets/all', [UserFleetController::class, 'getFleets']);
     });
 });
