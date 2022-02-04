@@ -16,9 +16,8 @@ use App\Http\Controllers\AuthController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::fallback(function (){
+    abort(404, 'API resource not found');
 });
 
 Route::group([
@@ -27,15 +26,16 @@ Route::group([
 ], function ($router) {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('me', [AuthController::class, 'me']);
-    Route::prefix('user')->group(function (){
-        Route::prefix('characters')->group(function (){
+    Route::group([
+        'middleware' => 'auth:api',
+        'prefix' => 'user'
+    ], function () {
+        Route::prefix('characters')->group(function () {
             Route::post('all', [UserController::class, 'getCharacters']);
             Route::post('not-in-transport', [UserController::class, 'getCharactersNotInTransport']);
             Route::post('buy', [CharacterController::class, 'buyCharacter']);
         });
-        Route::prefix('transports')->group(function (){
+        Route::prefix('transports')->group(function () {
             Route::post('all', [UserController::class, 'getTransports']);
             Route::post('not-in-fleet', [UserController::class, 'getTransportsNotInFleet']);
         });
