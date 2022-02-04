@@ -10,4 +10,6 @@ interface UserCharacterRepositoryInterface
 {
     public function create($characterId);
     public function charactersInTransport($transportId);
+    public function getById($id);
+    public function addTransport($characterId, $transportId);
 }

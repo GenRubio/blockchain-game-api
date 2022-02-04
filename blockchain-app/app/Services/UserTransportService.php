@@ -26,6 +26,10 @@ class UserTransportService extends Controller
         return $this->userTransportRepository->create($transportId);
     }
 
+    public function getById($id){
+        return $this->userTransportRepository->getById($id);
+    }
+
     //Not in actual use
     public function prepareDataUserTransport($userTransport){
         $transportService = new TransportService();

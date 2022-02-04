@@ -22,6 +22,14 @@ class UserCharacterService extends Controller
         $this->userCharacterRepository = new UserCharacterRepository();
     }
 
+    public function getById($id){
+        return $this->userCharacterRepository->getById($id);
+    }
+
+    public function addTransport($characterId, $transportId){
+        $this->userCharacterRepository->addTransport($characterId, $transportId);
+    }
+
     public function create($characterId){
         return $this->userCharacterRepository->create($characterId);
     }

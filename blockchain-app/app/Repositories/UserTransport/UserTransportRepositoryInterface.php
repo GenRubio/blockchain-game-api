@@ -9,4 +9,5 @@ namespace App\Repositories\UserTransport;
 interface UserTransportRepositoryInterface
 {
     public function create($transportId);
+    public function getById($id);
 }

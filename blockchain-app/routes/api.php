@@ -48,6 +48,8 @@ Route::group([
             Route::post('all', [UserTransportController::class, 'getTransports']);
             Route::post('not-in-fleet', [UserTransportController::class, 'getTransportsNotInFleet']);
             Route::post('with-caracters', [UserTransportController::class, 'getTransportsWithCharacters']);
+            //Recibe variables user_character_id y user_transport_id
+            Route::post('add-character', [UserTransportController::class, 'addCharacterToTransport']);
         });
 
         Route::post('objects/all', [UserObjectController::class, 'getObjects']);

@@ -32,4 +32,11 @@ class UserTransportRepository extends Repository implements UserTransportReposit
             'transport_id' => $transportId
         ]);
     }
+
+    public function getById($id)
+    {
+        return $this->model->where('id', $id)
+            ->where('user_id', getUser()->id)
+            ->first();
+    }
 }

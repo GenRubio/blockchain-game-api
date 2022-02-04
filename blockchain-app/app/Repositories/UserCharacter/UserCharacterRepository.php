@@ -40,4 +40,20 @@ class UserCharacterRepository extends Repository implements UserCharacterReposit
             ->where('user_id', getUser()->id)
             ->get();
     }
+
+    public function getById($id)
+    {
+        return $this->model->where('id', $id)
+            ->where('user_id', getUser()->id)
+            ->first();
+    }
+
+    public function addTransport($characterId, $transportId)
+    {
+        $this->model->where('user_id', getUser()->id)
+            ->where('id', $characterId)
+            ->update([
+                'user_transport_id' => $transportId
+            ]);
+    }
 }

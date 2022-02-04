@@ -26,11 +26,13 @@ class CharacterRepository extends Repository implements CharacterRepositoryInter
         parent::__construct($this->model);
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         return $this->model->all();
     }
 
-    public function getProbability(){
+    public function getProbability()
+    {
         return $this->model->select('id', 'probability')->get();
     }
 }
