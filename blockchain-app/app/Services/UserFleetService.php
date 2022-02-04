@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserFleet;
+use App\Repositories\UserFleet\UserFleetRepository;
 
 /**
  * Class UserFleetService
@@ -11,13 +12,14 @@ use App\Models\UserFleet;
  */
 class UserFleetService extends Controller
 {
+    private $userFleetRepository;
     /**
      * UserFleetService constructor.
      * @param UserFleet $userfleet
      */
     public function __construct()
     {
-        //
+        $this->userFleetRepository = new UserFleetRepository();
     }
 
     public function prepareDataUserFleet($userFleet){

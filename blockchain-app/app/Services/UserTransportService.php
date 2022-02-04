@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserTransport;
+use App\Repositories\UserTransport\UserTransportRepository;
 
 /**
  * Class UserTransportService
@@ -11,13 +12,14 @@ use App\Models\UserTransport;
  */
 class UserTransportService extends Controller
 {
+    private $userTransportRepository;
     /**
      * UserTransportService constructor.
      * @param UserTransport $usertransport
      */
     public function __construct()
     {
-        //
+        $this->userTransportRepository = new UserTransportRepository();
     }
 
     //Not in actual use

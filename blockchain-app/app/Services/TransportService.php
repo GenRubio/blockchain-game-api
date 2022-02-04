@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transport;
+use App\Repositories\Transport\TransportRepository;
 
 /**
  * Class TransportService
@@ -11,13 +12,14 @@ use App\Models\Transport;
  */
 class TransportService extends Controller
 {
+    private $transportRepository;
     /**
      * TransportService constructor.
      * @param Transport $transport
      */
     public function __construct()
     {
-        //
+        $this->transportRepository = new TransportRepository();
     }
 
     public function prepareDataTransport($transport){

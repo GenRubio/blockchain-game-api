@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserObject;
+use App\Repositories\UserObject\UserObjectRepository;
 
 /**
  * Class UserObjectService
@@ -11,13 +12,14 @@ use App\Models\UserObject;
  */
 class UserObjectService extends Controller
 {
+    private $userObjectRepository;
     /**
      * UserObjectService constructor.
      * @param UserObject $userobject
      */
     public function __construct()
     {
-        //
+        $this->userObjectRepository = new UserObjectRepository();
     }
 
     public function getObjectsInUserFleet($userFleet){
