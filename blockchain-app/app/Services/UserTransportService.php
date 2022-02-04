@@ -47,6 +47,17 @@ class UserTransportService extends Controller
         ];
     }
 
+    public function prepareDataUserTransportWithCharacters($userTransport, $characters){
+        $transportService = new TransportService();
+        return [
+            'key' => $userTransport->id,
+            'inFleet' => $userTransport->fleet ? true : false,
+            'characters' => $characters,
+            'transport' => $transportService->prepareDataTransport($userTransport->transport),
+            'live' => $userTransport->live
+        ];
+    }
+
     public function prepareDataUserTransportNotInFleet($userTransport){
         $transportService = new TransportService();
         return [

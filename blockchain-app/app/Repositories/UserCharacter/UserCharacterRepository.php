@@ -26,10 +26,18 @@ class UserCharacterRepository extends Repository implements UserCharacterReposit
         parent::__construct($this->model);
     }
 
-    public function create($characterId){
+    public function create($characterId)
+    {
         return $this->model->create([
             'user_id' => getUser()->id,
             'character_id' => $characterId
         ]);
+    }
+
+    public function charactersInTransport($transportId)
+    {
+        return $this->model->where('user_transport_id', $transportId)
+            ->where('user_id', getUser()->id)
+            ->get();
     }
 }

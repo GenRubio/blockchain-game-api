@@ -38,15 +38,16 @@ Route::group([
         Route::post('/', [UserController::class, 'getUser']);
 
         Route::prefix('characters')->group(function () {
+            Route::post('buy', [CharacterController::class, 'buyCharacter']);
             Route::post('all', [UserCharacterController::class, 'getCharacters']);
             Route::post('not-in-transport', [UserCharacterController::class, 'getCharactersNotInTransport']);
-            Route::post('buy', [CharacterController::class, 'buyCharacter']);
         });
 
         Route::prefix('transports')->group(function () {
+            Route::post('buy', [TransportController::class, 'buyTransport']);
             Route::post('all', [UserTransportController::class, 'getTransports']);
             Route::post('not-in-fleet', [UserTransportController::class, 'getTransportsNotInFleet']);
-            Route::post('buy', [TransportController::class, 'buyTransport']);
+            Route::post('with-caracters', [UserTransportController::class, 'getTransportsWithCharacters']);
         });
 
         Route::post('objects/all', [UserObjectController::class, 'getObjects']);

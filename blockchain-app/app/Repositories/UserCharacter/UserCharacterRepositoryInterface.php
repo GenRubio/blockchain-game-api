@@ -9,4 +9,5 @@ namespace App\Repositories\UserCharacter;
 interface UserCharacterRepositoryInterface
 {
     public function create($characterId);
+    public function charactersInTransport($transportId);
 }
