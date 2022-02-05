@@ -50,9 +50,15 @@ Route::group([
             Route::post('with-caracters', [UserTransportController::class, 'getTransportsWithCharacters']);
             //Recibe variables user_character_id y user_transport_id
             Route::post('add-character', [UserTransportController::class, 'addCharacterToTransport']);
+            Route::post('remove-character', [UserTransportController::class, 'removeCharacterToTransport']);
         });
 
-        Route::post('objects/all', [UserObjectController::class, 'getObjects']);
-        Route::post('fleets/all', [UserFleetController::class, 'getFleets']);
+        Route::prefix('objects')->group(function (){
+            Route::post('all', [UserObjectController::class, 'getObjects']);
+        });
+
+        Route::prefix('fleets')->group(function (){
+            Route::post('all', [UserFleetController::class, 'getFleets']);
+        });
     });
 });

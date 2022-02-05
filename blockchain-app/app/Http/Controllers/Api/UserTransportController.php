@@ -60,13 +60,43 @@ class UserTransportController extends Controller
         $userCharacter = $userCharacterService->getById($request->user_character_id);
 
         if ($userTransport && $userCharacter) {
-            if (count($userTransport->characters) < $userTransport->transport->max_characters){
+            if ($userCharacter->transport){
+                $response['message'] = 'Este personaje ya se encuentra en un transporte';
+            }
+            else if ($userTransport->fleet){
+                $response['message'] = 'Este transporte esta en batalla';
+            }
+            else if (count($userTransport->characters) >= $userTransport->transport->max_characters){
+                $response['message'] = 'Limite de personajes superado';
+            }
+            else{
                 $userCharacterService->addTransport($userCharacter->id, $userTransport->id);
                 $response['message'] = 'Ok';
                 $response['status'] = 200;
             }
+        }
+        return response()->json($response);
+    }
+
+    public function removeCharacterToTransport(Request $request){
+        $response = [
+            'message' => 'Error',
+            'status' => 201
+        ];
+        $userTransportService = new UserTransportService();
+        $userCharacterService = new UserCharacterService();
+
+        $userTransport = $userTransportService->getById($request->user_transport_id);
+        $userCharacter = $userCharacterService->getCharacterInTransport($request->user_character_id, $request->user_transport_id);
+
+        if ($userTransport && $userCharacter) {
+            if ($userTransport->fleet){
+                $response['message'] = 'Este transporte esta en batalla';
+            }
             else{
-                $response['message'] = 'Limite de characters superado';
+                $userCharacterService->removeTransport($userCharacter->id, $userTransport->id);
+                $response['message'] = 'Ok';
+                $response['status'] = 200;
             }
         }
         return response()->json($response);

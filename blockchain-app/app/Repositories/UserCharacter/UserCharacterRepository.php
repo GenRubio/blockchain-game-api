@@ -56,4 +56,20 @@ class UserCharacterRepository extends Repository implements UserCharacterReposit
                 'user_transport_id' => $transportId
             ]);
     }
+
+    public function removeTransport($characterId, $transportId)
+    {
+        $this->model->where('user_id', getUser()->id)
+            ->where('id', $characterId)
+            ->where('user_transport_id', $transportId)
+            ->delete();
+    }
+
+    public function getCharacterInTransport($characterId, $transportId)
+    {
+        return $this->model->where('user_id', getUser()->id)
+            ->where('user_transport_id', $transportId)
+            ->where('id', $characterId)
+            ->first();
+    }
 }

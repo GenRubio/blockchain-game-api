@@ -30,6 +30,14 @@ class UserCharacterService extends Controller
         $this->userCharacterRepository->addTransport($characterId, $transportId);
     }
 
+    public function removeTransport($characterId, $transportId){
+        $this->userCharacterRepository->removeTransport($characterId, $transportId);
+    }
+
+    public function getCharacterInTransport($characterId, $transportId){
+        return $this->userCharacterRepository->getCharacterInTransport($characterId, $transportId);
+    }
+
     public function create($characterId){
         return $this->userCharacterRepository->create($characterId);
     }
