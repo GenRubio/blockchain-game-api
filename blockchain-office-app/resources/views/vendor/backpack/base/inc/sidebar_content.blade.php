@@ -20,6 +20,11 @@
     </ul>
 </li>
 <li class='nav-item'>
+    <a class='nav-link' href='{{ backpack_url('authorizedapiagent') }}'>
+        <i class="las la-unlock"></i> Authorized Api Agents
+    </a>
+</li>
+<li class='nav-item'>
     <a class='nav-link' href='{{ backpack_url('character') }}'>
         <i class="las la-dragon"></i> Characters
     </a>

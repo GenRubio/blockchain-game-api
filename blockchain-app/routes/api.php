@@ -29,36 +29,38 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::group([
-        'middleware' => 'auth:api',
-        'prefix' => 'user'
-    ], function () {
-        Route::post('/', [UserController::class, 'getUser']);
-
-        Route::prefix('characters')->group(function () {
-            Route::post('buy', [CharacterController::class, 'buyCharacter']);
-            Route::post('all', [UserCharacterController::class, 'getCharacters']);
-            Route::post('not-in-transport', [UserCharacterController::class, 'getCharactersNotInTransport']);
-        });
-
-        Route::prefix('transports')->group(function () {
-            Route::post('buy', [TransportController::class, 'buyTransport']);
-            Route::post('all', [UserTransportController::class, 'getTransports']);
-            Route::post('not-in-fleet', [UserTransportController::class, 'getTransportsNotInFleet']);
-            Route::post('with-caracters', [UserTransportController::class, 'getTransportsWithCharacters']);
-            //Recibe variables user_character_id y user_transport_id
-            Route::post('add-character', [UserTransportController::class, 'addCharacterToTransport']);
-            Route::post('remove-character', [UserTransportController::class, 'removeCharacterToTransport']);
-        });
-
-        Route::prefix('objects')->group(function (){
-            Route::post('all', [UserObjectController::class, 'getObjects']);
-        });
-
-        Route::prefix('fleets')->group(function (){
-            Route::post('all', [UserFleetController::class, 'getFleets']);
+    Route::group(['middleware' => ['authorized.agents.api']], function (){
+        Route::post('login', [AuthController::class, 'login']);
+        Route::post('logout', [AuthController::class, 'logout']);
+        Route::group([
+            'middleware' => 'auth:api',
+            'prefix' => 'user'
+        ], function () {
+            Route::post('/', [UserController::class, 'getUser']);
+    
+            Route::prefix('characters')->group(function () {
+                Route::post('buy', [CharacterController::class, 'buyCharacter']);
+                Route::post('all', [UserCharacterController::class, 'getCharacters']);
+                Route::post('not-in-transport', [UserCharacterController::class, 'getCharactersNotInTransport']);
+            });
+    
+            Route::prefix('transports')->group(function () {
+                Route::post('buy', [TransportController::class, 'buyTransport']);
+                Route::post('all', [UserTransportController::class, 'getTransports']);
+                Route::post('not-in-fleet', [UserTransportController::class, 'getTransportsNotInFleet']);
+                Route::post('with-caracters', [UserTransportController::class, 'getTransportsWithCharacters']);
+                //Recibe variables user_character_id y user_transport_id
+                Route::post('add-character', [UserTransportController::class, 'addCharacterToTransport']);
+                Route::post('remove-character', [UserTransportController::class, 'removeCharacterToTransport']);
+            });
+    
+            Route::prefix('objects')->group(function (){
+                Route::post('all', [UserObjectController::class, 'getObjects']);
+            });
+    
+            Route::prefix('fleets')->group(function (){
+                Route::post('all', [UserFleetController::class, 'getFleets']);
+            });
         });
     });
 });

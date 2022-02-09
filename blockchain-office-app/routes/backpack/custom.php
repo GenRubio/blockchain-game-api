@@ -29,4 +29,6 @@ Route::group([
     Route::crud('object-type', 'ObjectTypeCrudController');
     Route::crud('item', 'ItemCrudController');
     Route::crud('transport', 'TransportCrudController');
+
+    Route::crud('authorizedapiagent', 'AuthorizedApiAgentCrudController');
 }); // this should be the absolute last line of this file
